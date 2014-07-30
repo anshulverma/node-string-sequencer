@@ -1,2 +1,20 @@
 # Sourcemap
 *.map
+
+# Node library modules
+node_modules/
+
+# Build artifacts
+lib/
+
+# Document files
+docs/
+
+# Log files
+*.log
+
+# All javascript source (this is a coffee script project)
+*.js
+
+# Code coverage output
+coverage/
