@@ -26,11 +26,6 @@ module.exports = (grunt) ->
         options: {
           reporter: 'spec'
           colors: true
-          require: [
-            'coffee-script'
-            'coffee-script/register'
-            'test/test_helper.coffee'
-          ]
         }
         src: [ 'test/*.coffee' ]
       }
@@ -131,4 +126,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'docs', ['clean:docs', 'docco']
   grunt.registerTask 'test', ['coffeelint', 'mochaTest:test']
   grunt.registerTask 'default', ['test']
-  grunt.registerTask 'build', ['test', 'docs', 'coverage']
+  grunt.registerTask 'build', ['test', 'docs']
