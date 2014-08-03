@@ -106,7 +106,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-env'
   grunt.loadNpmTasks 'grunt-sed'
 
-  buildType = grunt.option('build') || 'local'
+  buildType = grunt.option('type') || 'local'
   checkContains buildType, ['local', 'ci'], "invalid build type '#{buildType}'"
 
   switch buildType
