@@ -1,7 +1,7 @@
 {checkContains} = require 'node-preconditions'
 
 module.exports = (grunt) ->
-  grunt.initConfig {
+  grunt.initConfig
     env:
       options:
         concat:
@@ -11,24 +11,18 @@ module.exports = (grunt) ->
         NODE_ENV: 'development'
       coverage:
         NODE_ENV: 'coverage'
-    coffee: {
-      compile: {
-        options: {
+    coffee:
+      compile:
+        options:
           bare: true
-        }
-        files: {
+        files:
           'lib/main.js': 'src/main.coffee'
-        }
-      }
-    }
-    mochaTest: {
-      test: {
-        options: {
+    mochaTest:
+      test:
+        options:
           reporter: 'spec'
           colors: true
-        }
         src: [ 'test/*.coffee' ]
-      }
       coverageHTML:
         options:
           reporter: 'html-cov'
@@ -41,35 +35,23 @@ module.exports = (grunt) ->
           captureFile: 'coverage/lcov.info'
           quiet: true
         src: [ 'test/*.coffee' ]
-    }
-    coffeelint: {
-      src: {
-        files: {
+    coffeelint:
+      src:
+        files:
           src: [ 'src/*.coffee' ]
-        }
-      }
-      test: {
-        files: {
+      test:
+        files:
           src: [ 'test/*.coffee' ]
-        }
-      }
-      buildTools: {
-        files: {
+      buildTools:
+        files:
           src: [ 'Gruntfile.coffee' ]
-        }
-      }
-      options: {
+      options:
         configFile: 'coffeelint.json'
-      }
-    }
-    docco: {
-      all: {
+    docco:
+      all:
         src: [ 'src/*.coffee', 'test/*.coffee']
-        options: {
+        options:
           output: 'docs/'
-        }
-      }
-    }
     coffeeCoverage:
       options:
         initFile: 'coverage/src/init.js'
@@ -90,7 +72,6 @@ module.exports = (grunt) ->
       coverage: 'coverage'
       docs: 'docs'
       lib: 'lib'
-  }
 
   grunt.loadNpmTasks 'grunt-mocha-test'
   grunt.loadNpmTasks 'grunt-coffeelint'
@@ -107,24 +88,23 @@ module.exports = (grunt) ->
 
   switch buildType
     when 'local'
-      grunt.registerTask '_coverage',
-        [
-          'env:coverage',
-          'coffeeCoverage',
-          'mochaTest:coverageHTML',
-        ]
+      grunt.registerTask '_coverage', ['mochaTest:coverageHTML']
     when 'ci'
       grunt.registerTask '_coverage',
         [
-          'env:coverage',
-          'coffeeCoverage',
           'mochaTest:coverageLCOV',
           'sed:lcov',
           'coveralls:coverage'
         ]
 
-  grunt.registerTask 'coverage', ['clean:coverage', '_coverage']
-  grunt.registerTask 'docs', ['clean:docs', 'docco']
-  grunt.registerTask 'test', ['coffeelint', 'mochaTest:test']
+  grunt.registerTask 'coverage',
+    [
+      'env:coverage',
+      'clean:coverage',
+      'coffeeCoverage',
+      '_coverage'
+    ]
+  grunt.registerTask 'docs',    ['clean:docs', 'docco']
+  grunt.registerTask 'test',    ['coffeelint', 'mochaTest:test']
   grunt.registerTask 'default', ['test']
-  grunt.registerTask 'build', ['clean', 'test', 'coffee:compile', 'docs']
+  grunt.registerTask 'build',   ['clean', 'test', 'coffee:compile', 'docs']
