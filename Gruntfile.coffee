@@ -17,7 +17,7 @@ module.exports = (grunt) ->
           bare: true
         }
         files: {
-          'src/main.js': 'src/main.coffee'
+          'lib/main.js': 'src/main.coffee'
         }
       }
     }
@@ -89,6 +89,7 @@ module.exports = (grunt) ->
     clean:
       coverage: 'coverage'
       docs: 'docs'
+      lib: 'lib'
   }
 
   grunt.loadNpmTasks 'grunt-mocha-test'
@@ -126,4 +127,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'docs', ['clean:docs', 'docco']
   grunt.registerTask 'test', ['coffeelint', 'mochaTest:test']
   grunt.registerTask 'default', ['test']
-  grunt.registerTask 'build', ['test', 'docs']
+  grunt.registerTask 'build', ['clean', 'test', 'coffee:compile', 'docs']

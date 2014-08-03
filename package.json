@@ -4,7 +4,7 @@
   "description": "An easy way to sequence arbitrary strings",
   "private": false,
   "author": "Anshul Verma <anshul.verma86@gmail.com>",
-  "main": "src/main.js",
+  "main": "lib/main.js",
   "maintainers": [
     "Anshul Verma <anshul.verma86@gmail.com>"
   ],
@@ -52,6 +52,6 @@
   },
   "directories": {
     "doc": "./docs",
-    "src": "./src"
+    "lib": "./lib"
   }
 }
